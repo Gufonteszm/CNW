@@ -10,25 +10,29 @@ reporter - gustavoo
 especialista - brayan
 
 ancora
-1 reporter
+1 repórter
 2 especialista
-3 reporter
+3 repórter
 4 especialista
-5 reporter
+5 repórter
 6 ancora
 fim
 
 roteiro:
 âncora - Boa noite. O avanço da tecnologia se tornou notável com o passar do tempo e com isso, a tecnologia hoje é indispensável no mundo, desde o início dos computadores até os celulares mais atuais. Com esse avanço, surgem facilitadores que influenciam na rotina de maior parte da população mundial hoje, como os sites e os aplicativos. Mas como funcionam estes facilitadores? Hoje veremos como funciona um dos elementos de organização por trás das linhas de código destes facilitadores. Como funciona a integração de containers?
 
-reporter - Boa noite. A integração de containers é um dos processos da programação, onde por meio de containers, o programador consegue conectar diferentes arquivos e fazê-los conversar entre si. Para a melhor compreensão, entrevistaremos um especialista da área. Estamos aqui com o Desenvolvedor Brayan Mendes. Olá Brayan, como vai? viemos aqui saber mais sobre a integração de containers e tirar algumas duvidas com você.
+repórter - Boa noite. A integração de containers é um dos processos da programação, onde por meio de containers, o programador consegue conectar diferentes arquivos e fazê-los conversar entre si. Para a melhor compreensão, entrevistaremos um especialista da área. Estamos aqui com o Desenvolvedor Brayan Mendes. Olá Brayan, como vai? viemos aqui saber mais sobre a integração de containers e tirar algumas duvidas com você.
 
 especialista - Olá, boa noite! Bom, a integração de containers é um processo de conexão entre diferentes arquivos e fazê-los conversar simultaneamente para melhorar a funcionalidade do site ou do aplicativo o qual está usando este processo. De uma forma mais simples, podemos dizer que dentro de um código, temos o cliente, o garçom e o cozinheiro. Caso não haja uma comunicação entre o cliente e o garçom, então não haverá pedido. Se o garçom não se comunicar com o cozinheiro, não haverá comida. E se não houver comunicação entre o cliente e o garçom, então não haverá trabalho.
 
-reporter - Certo, mas como fazemos containers se comunicarem entre si em um mesmo sistema?
+repórter - Certo, mas como fazemos containers se comunicarem entre si em um mesmo sistema?
 
-especialista - Bom, para isso precisamos   
+especialista - Bom, para isso temos três principais formas. A primeira utiliza o sistema de rede dockers para executar a comunicação entre diferentes arquivos de forma simples e segura, sem precisar de nomes complicados. A segunda forma é o modo host, onde todos os arquivos conversam ao mesmo tempo, sendo uma maneira muito rápida e eficaz, porém apresenta falhas, como o conflito de portas. A terceira forma é o docker compose, onde não é necessário fazer as conexões, já que o sistema as gera de forma automática, sendo necesário apenas executar o comando para iniciar a comunicação, sendo a forma mais fácil de fazê-los conversarem.
 
+repórter - entendido, e qual é a diferença entre rodar containers isolados e usar ferramentas de orquestração?
+
+especialista - Rodar containers isolados funciona da seguinte forma, imagine o container como um cozinheiro excepcional. Mesmo que ele tenha ótimos dotes culinários, ele trabalha sozinho, então se ele precisar de ingredientes, você precisará levá-los até ele, se ele ficar doente, a cozinha ficará sem funcionamento, e você terá que "reiniciá-lo". Podemos dizer que para trabalhos onde a demanda não é tão alta, utilizar containers isolados seria uma decisão viável, mas se a demanda aumentar, você precisará de mais chefs solitários, e terá de comandá-los de forma individual, tornando uma bagunça.
+Agora sobre usar ferramentas de orquestração, pense nessas ferramentas como gerentes altamente treinados, ao invés de dar comandos à eles, você dá uma meta à eles. Por exemplo, ao invés de você o mandar cozinhar, você pede para que ele atinja a meta de 500 clientes
 
 
 
