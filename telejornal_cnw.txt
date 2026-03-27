@@ -1,0 +1,94 @@
+tema: Integração de Containers (Orquestração e Comunicação entre Serviços)
+.Como fazer containers se comunicarem entre si em um mesmo sistema?
+.Diferença entre rodar containers isolados e usar ferramentas de orquestração.
+.Exemplos práticos com docker-compose.
+.Quais problemas comuns de integração e como resolvê-los?
+
+roteiro:
+ancora - mariana
+reporter - gustavoo
+especialista - brayan
+
+ancora
+1 reporter
+2 especialista
+3 reporter
+4 especialista
+5 reporter
+6 ancora
+fim
+
+A integração de containers é o que transforma processos isolados em uma aplicação funcional. Quando falamos de sistemas modernos, raramente um container vive sozinho; ele precisa conversar com bancos de dados, APIs e serviços de cache.
+
+---
+
+## 1. Como os containers se comunicam?
+
+Em um ambiente Docker, a comunicação ocorre através de **Redes Virtuais (Networks)**. O Docker cria uma rede interna onde cada container recebe um IP, mas o segredo está no **DNS Embutido**.
+
+* **Service Discovery:** Em vez de usar IPs (que mudam toda vez que o container reinicia), você usa o **nome do serviço**. Se você nomear seu banco de dados como `db`, sua aplicação pode acessá-lo simplesmente via `http://db:5432`.
+* **Bridge Network:** É o driver padrão. Ele isola os containers do host, mas permite que eles falem entre si se estiverem na mesma rede.
+
+
+
+---
+
+## 2. Containers Isolados vs. Orquestração
+
+Rodar containers manualmente é como gerenciar músicos individualmente; a orquestração é o maestro que garante que todos toquem a mesma música.
+
+| Característica | Containers Isolados (`docker run`) | Orquestração (`Docker Compose` / `K8s`) |
+| :--- | :--- | :--- |
+| **Gerenciamento** | Manual e propenso a erros. | Declarativo (via arquivos YAML). |
+| **Escalabilidade** | Difícil de replicar instâncias. | Escala com um simples comando. |
+| **Resiliência** | Se o container cair, ele fica fora do ar. | Reinicia containers automaticamente (Self-healing). |
+| **Rede** | Você precisa criar redes manuais. | Cria redes automáticas para o projeto. |
+
+---
+
+## 3. Exemplo Prático com Docker Compose
+
+O **Docker Compose** é a ferramenta ideal para orquestrar múltiplos containers em uma única máquina (ambiente de desenvolvimento).
+
+Abaixo, um exemplo de um arquivo `docker-compose.yml` que conecta um app Node.js a um banco Redis:
+
+```yaml
+version: '3.8'
+services:
+  web-app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - cache
+    environment:
+      REDIS_URL: redis://cache:6379
+
+  cache:
+    image: "redis:alpine"
+```
+
+> **Nota:** No exemplo acima, o `web-app` usa o nome `cache` para encontrar o Redis. O Compose cria automaticamente uma rede para que ambos se enxerguem.
+
+---
+
+## 4. Problemas Comuns e Soluções
+
+Até os melhores engenheiros batem a cabeça com integração. Aqui estão os vilões mais frequentes:
+
+### A. O serviço "A" sobe antes do serviço "B"
+**Problema:** Sua aplicação tenta conectar no banco de dados, mas o banco ainda está inicializando. O container da aplicação quebra.
+**Solução:** Use o `depends_on` (como no exemplo acima) e scripts de **wait-for-it** ou lógicas de *retry* na aplicação para que ela aguarde a conexão estar pronta.
+
+### B. "Connection Refused" usando Localhost
+**Problema:** Tentar acessar `localhost:5432` dentro de um container para falar com outro.
+**Solução:** Lembre-se que, para o container, `localhost` é **ele mesmo**. Use o nome do serviço definido no Compose ou o IP da rede Docker.
+
+### C. Conflitos de Porta
+**Problema:** Dois containers tentando expor a mesma porta (ex: 80) para o mundo exterior.
+**Solução:** Mapeie portas diferentes no host. Ex: `8081:80` para o App 1 e `8082:80` para o App 2.
+
+---
+
+### Próximo passo sugerido
+A comunicação é apenas metade da batalha; a persistência dos dados é a outra. **Gostaria que eu explicasse como funcionam os Volumes para que seus dados não sumam quando os containers forem reiniciados?**
